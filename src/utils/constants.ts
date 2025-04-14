@@ -1,0 +1,1 @@
+// Add your constant here. If you use same constant in multiple files, you can add it in a separate file and import it.

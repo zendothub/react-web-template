@@ -76,6 +76,23 @@ This structure ensures scalability, maintainability, and a clear separation of c
 
 ---
 
+## ♽ Envorment Variables:
+Vite exposes env variables under import.meta.env object as strings automatically.
+
+To prevent accidentally leaking env variables to the client, only variables prefixed with VITE_ are exposed to your Vite-processed code. e.g. for the following env variables:
+```.env
+VITE_SOME_KEY=123
+DB_PASSWORD=foobar
+```
+Only VITE_SOME_KEY will be exposed as import.meta.env.VITE_SOME_KEY to your client source code, but DB_PASSWORD will not.
+```tsx
+console.log(import.meta.env.VITE_SOME_KEY) // "123"
+console.log(import.meta.env.DB_PASSWORD) // undefined
+```
+
+---
+
+
 ## ♽ Component Lifecycle:
 
 In React function components, the lifecycle is handled differently than in class components. Instead of lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount, you use hooks—especially the useEffect hook.

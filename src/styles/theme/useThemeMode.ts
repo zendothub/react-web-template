@@ -1,18 +1,25 @@
-import { useState, useEffect } from "react";
+// src/store/themeStore.ts
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-export const useThemeMode = () => {
-  const storedTheme = localStorage.getItem("theme") || "light";
-  const [mode, setMode] = useState<"light" | "dark">(storedTheme as "light" | "dark");
+type ThemeMode = "light" | "dark";
 
-  useEffect(() => {
-    localStorage.setItem("theme", mode);
-  }, [mode]);
+interface ThemeState {
+  mode: ThemeMode;
+  toggleMode: () => void;
+}
 
-  const toggleTheme = () => {
-    setMode(prev => (prev === "light" ? "dark" : "light"));
-  };
-
-  return { mode, toggleTheme };
-};
-
-// This hook manages the theme mode (light or dark) of the application.
+export const useThemeStore = create<ThemeState>()(
+  persist(
+    (set) => ({
+      mode: "light",
+      toggleMode: () =>
+        set((state) => ({
+          mode: state.mode === "light" ? "dark" : "light",
+        })),
+    }),
+    {
+      name: "theme-storage",
+    }
+  )
+);

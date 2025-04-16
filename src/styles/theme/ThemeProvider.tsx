@@ -1,22 +1,15 @@
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import { createContext, useContext } from "react";
 import { lightTheme, darkTheme } from "./Theme";
-import { useThemeMode } from "./useThemeMode";
-
-const ThemeContext = createContext({ toggleTheme: () => {} });
-
-export const useTheme = () => useContext(ThemeContext);
+import { useThemeStore } from "./useThemeMode";
 
 const AppThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const { mode, toggleTheme } = useThemeMode();
+  const { mode } = useThemeStore();
 
   return (
-    <ThemeContext.Provider value={{ toggleTheme }}>
-      <ThemeProvider theme={mode === "dark" ? darkTheme : lightTheme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </ThemeContext.Provider>
+    <ThemeProvider theme={mode === "dark" ? darkTheme : lightTheme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
   );
 };
 

@@ -1,13 +1,17 @@
 import { IconButton } from "@mui/material";
-import { Brightness4, Brightness7 } from "@mui/icons-material";
-import { useTheme } from "./ThemeProvider";
+import { DarkMode, LightMode } from "@mui/icons-material";
+import { useThemeStore } from "./useThemeMode";
 
 const ThemeToggleButton = () => {
-  const { toggleTheme } = useTheme();
+  const { mode, toggleMode } = useThemeStore();
 
   return (
-    <IconButton onClick={toggleTheme} color="inherit">
-      {localStorage.getItem("theme") === "dark" ? <Brightness7 /> : <Brightness4 />}
+    <IconButton onClick={toggleMode} color="inherit">
+      { mode === "dark" ? (
+        <DarkMode />
+      ) : (
+        <LightMode />
+      )}
     </IconButton>
   );
 };

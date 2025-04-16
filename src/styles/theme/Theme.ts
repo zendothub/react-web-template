@@ -42,7 +42,6 @@ export const darkTheme = createTheme({
     },
     secondary: {
       main: "#244b47",
-      
     },
     border: {
       main: "#434572", // Custom border color
